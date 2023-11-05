@@ -31,7 +31,7 @@ app.use("/get-translation", async (req, res) => {
                   4.If there is any offensive input is passed on, you can distribute the warning to 
                     the user about that in the output format i mentioned in the 5th point according to 
                     your intelligence but strictly follow the output format mentioned in the 5th point.   
-                  5. Strictly Use json format as an output as {corrected_sentence: "your corrected and 
+                  5. Strictly Use json format as an output as {corrected_sentence: "input language: your corrected and 
                     transfered sentence structure/word into input language", translation: "your answer"}`,
       },
       {
