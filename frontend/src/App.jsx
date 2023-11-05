@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./App.css";
-import OpenAI from "openai";
 import { BeatLoader } from "react-spinners";
 import Languages from "./Languages";
 import axios from "axios";
@@ -13,11 +12,6 @@ const App = () => {
   const [translation, setTranslation] = useState("");
   const [correctedText, setCorrectedText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const openai = new OpenAI({
-    apiKey: import.meta.env.VITE_OPENAI_KEY,
-    dangerouslyAllowBrowser: true,
-  });
 
   const handleInputChange = (e) => {
     setLanguage(e.target.value);
