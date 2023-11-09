@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BeatLoader } from "react-spinners";
+import { FiCopy } from "react-icons/fi";
+import { HiSpeakerWave } from "react-icons/hi2"; // Added import for HiSpeakerWave
+import { RxCross2 } from "react-icons/rx";
 import Languages from "./Languages";
 import axios from "axios";
 
@@ -51,9 +54,9 @@ const App = () => {
     translate();
   };
 
-  const handleCopy = () => {
+  const handleCopy = (textToCopy) => {
     navigator.clipboard
-      .writeText(translation)
+      .writeText(textToCopy)
       .then(() => displayNotification())
       .catch((err) => console.error("Failed to copy: ", err));
   };
@@ -65,6 +68,28 @@ const App = () => {
     }, 3000);
   };
 
+  const speakTranslation = async (teaxtToSpeak) => {
+    try {
+      const response = await axios.get(
+        `/get-translation-speech?translation=${teaxtToSpeak}`,
+        {
+          responseType: "arraybuffer", // Tell Axios to expect an ArrayBuffer response
+        }
+      );
+
+      const audioContext = new (window.AudioContext ||
+        window.webkitAudioContext)(); // Create an audio context
+      const audioBuffer = await audioContext.decodeAudioData(response.data); // Decode the audio data
+
+      const source = audioContext.createBufferSource(); // Create a new buffer source
+      source.buffer = audioBuffer; // Set the buffer to the decoded audio data
+      source.connect(audioContext.destination); // Connect the source to the speakers
+      source.start(0);
+    } catch (error) {
+      console.error("Error playing audio:", error);
+    }
+  };
+
   return (
     <div className="container">
       <h1>Translation</h1>
@@ -72,10 +97,17 @@ const App = () => {
 
       <Languages handleInputChange={handleInputChange} />
 
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleOnSubmit} className="translation-text-form">
+        {message && (
+          <RxCross2
+            className="translation-text-removal-icon"
+            onClick={() => setMessage("")}
+          />
+        )}
         <textarea
           name="message"
           placeholder="Type your message here.."
+          value={message}
           onChange={(e) => setMessage(e.target.value)}
         ></textarea>
 
@@ -85,30 +117,39 @@ const App = () => {
       </form>
 
       <div className="translation">
-        <div className="copy-btn" onClick={handleCopy}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"
-            />
-          </svg>
-        </div>
         {isLoading ? <BeatLoader size={12} color={"red"} /> : translation}
+        {translation ? (
+          <div className="translation-handle-buttons">
+            <HiSpeakerWave
+              className="speaker-button"
+              onClick={() => speakTranslation(translation)}
+            />
+            <FiCopy
+              className="copy-button"
+              onClick={() => handleCopy(translation)}
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
+
       {correctedText ? (
         <div className="corrected_text">
           <p>
             Correction:{" "}
             <span className="corrected-sentence">{correctedText}</span>
           </p>
+          <div className="translation-handle-buttons">
+            <HiSpeakerWave
+              className="speaker-button"
+              onClick={() => speakTranslation(correctedText)}
+            />
+            <FiCopy
+              className="copy-button"
+              onClick={() => handleCopy(correctedText)}
+            />
+          </div>
         </div>
       ) : (
         ""
