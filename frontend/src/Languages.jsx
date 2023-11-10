@@ -189,8 +189,11 @@ const Languages = ({ handleInputChange }) => {
         <option name="language" value="Swahili">
           Swahili
         </option>
-        <option name="language" value="Swedish ">
+        <option name="language" value="Swedish">
           Swedish{" "}
+        </option>
+        <option name="language" value="Tagalog">
+          Tagalog{" "}
         </option>
         <option name="language" value="Tamil">
           Tamil
