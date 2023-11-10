@@ -6,6 +6,7 @@ import { HiSpeakerWave } from "react-icons/hi2"; // Added import for HiSpeakerWa
 import { RxCross2 } from "react-icons/rx";
 import Languages from "./Languages";
 import axios from "axios";
+const audioContext = new (window.AudioContext || window.webkitAudioContext)(); // Create an audio context
 
 const App = () => {
   const [language, setLanguage] = useState("Afrikaans");
@@ -68,7 +69,8 @@ const App = () => {
     }, 3000);
   };
 
-  const speakTranslation = async (teaxtToSpeak) => {
+  const speakTranslation = async (textToSpeak) => {
+    console.log("Speaking translation:", textToSpeak);
     try {
       const response = await axios.get(
         `/get-translation-speech?translation=${teaxtToSpeak}`,
@@ -77,8 +79,8 @@ const App = () => {
         }
       );
 
-      const audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)(); // Create an audio context
+      // const audioContext = new (window.AudioContext ||
+      //   window.webkitAudioContext)();
       const audioBuffer = await audioContext.decodeAudioData(response.data); // Decode the audio data
 
       const source = audioContext.createBufferSource(); // Create a new buffer source
