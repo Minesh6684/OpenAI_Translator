@@ -222,7 +222,7 @@ const Languages = ({ handleInputChange }) => {
         <option name="language" value="Urdu">
           Urdu
         </option>
-          <option name="language" value="Tagalog">
+        <option name="language" value="Tagalog">
           Tagalog
         </option>
         <option name="language" value="Uzbek">
@@ -236,6 +236,21 @@ const Languages = ({ handleInputChange }) => {
         </option>
         <option name="language" value="Xhosa">
           Xhosa
+        </option>
+        <option name="language" value="Bhojpuri">
+          Bhojpuri
+        </option>
+        <option name="language" value="Maithili">
+          Maithili
+        </option>
+        <option name="language" value="Magahi">
+          Magahi
+        </option>
+        <option name="language" value="Angika">
+          Angika
+        </option>
+        <option name="language" value="Bihari">
+          Bihari
         </option>
       </select>
     </div>
