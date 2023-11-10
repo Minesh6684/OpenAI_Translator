@@ -73,7 +73,7 @@ const App = () => {
     console.log("Speaking translation:", textToSpeak);
     try {
       const response = await axios.get(
-        `/get-translation-speech?translation=${teaxtToSpeak}`,
+        `/get-translation-speech?translation=${textToSpeak}`,
         {
           responseType: "arraybuffer", // Tell Axios to expect an ArrayBuffer response
         }
