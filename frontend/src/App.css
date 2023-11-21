@@ -5,21 +5,28 @@
 
 body {
   margin: 0;
-  background: #f3fae0;
+  background-image: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+  /* background: #a8bdd0; */
 }
 
 h1 {
   margin-top: 0;
-  color: #023047;
+  color: #0354b5;
   font-family: "Poppins", sans-serif;
 }
 
 .container {
   max-width: 600px;
   margin: 32px auto;
-  background: #fff;
+  background: #ffffff;
   padding: 16px 32px;
   box-shadow: 0 4px 40px -8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  /* border: 1px solid red; */
+  min-height: 700px;
+  /* height: 95%; */
 }
 
 .container form {
@@ -61,16 +68,31 @@ h1 {
   height: 140px;
   resize: none;
   line-height: 1.7;
-  border: 1px solid #023047;
+  /* border: 2px solid #4c6378; */
+
+  border-radius: 5px;
+}
+
+.container textarea:focus {
+  outline: none !important;
+  border-color: #719ece;
+  box-shadow: 0 0 10px #719ece;
 }
 
 .container button {
   padding: 8px;
   font-size: 20px;
   border: none;
-  background: #e63946;
+  background: #0354b5;
   color: #fff;
   cursor: pointer;
+
+  border-radius: 5px;
+}
+
+.container button:hover {
+  background-color: #0d41e1;
+  color: #fff;
 }
 
 .container h1 {
@@ -209,7 +231,7 @@ h1 {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
-  color: #d11616;
+  color: #567aea;
   appearance: none;
 }
 
@@ -237,14 +259,20 @@ h1 {
   padding-bottom: 50px; /* Add margin at the bottom to create space for buttons */
 }
 
-/* .corrected_text > p {
-  margin: 0;
-  border: 1px solid blue;
-} */
-
 .corrected-sentence {
   display: block;
   color: grey;
   margin-top: 5px;
   /* border: 1px solid red; */
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    padding: 30px 20px;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+  }
 }
